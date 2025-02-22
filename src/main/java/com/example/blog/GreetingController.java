@@ -17,13 +17,13 @@ public class GreetingController {
 
         String greeting;
         if (hour < 12) {
-            greeting = "Good morning, " + name + ", Welcome to COMP367";
+            greeting = "Good Morning, " + name + ", Welcome to COMP367";
         } else {
-            greeting = "Good afternoon, " + name + ", Welcome to COMP367";
+            greeting = "Good Afternoon, " + name + ", Welcome to COMP367";
         }
 
         model.addAttribute("greetingMessage", greeting);
-        return "index"; // index.html in src/main/resources/templates/
+        return "index";
     }
 }
 
