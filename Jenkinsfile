@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = "yadeleke/blog:latest"  
+    }
 
     stages {
         stage('Checkout') {
