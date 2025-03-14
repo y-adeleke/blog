@@ -2,10 +2,7 @@ pipeline {
     agent any
 
     environment {
-        // Set your Docker Hub username here
-        DOCKER_HUB_USERNAME = 'yadeleke'
-        DOCKER_IMAGE_NAME = "${DOCKER_HUB_USERNAME}/blog:latest"
-    }
+        DOCKER_IMAGE_NAME = "yadeleke/blog:latest"  
 
     stages {
         stage('Checkout') {
@@ -25,8 +22,12 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                withCredentials([string(credentialsId: 'Olatunji29$', variable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh "echo $DOCKER_HUB_PASSWORD | docker login -u ${DOCKER_HUB_USERNAME} --password-stdin"
+                // Use withCredentials to securely inject username and password
+                withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', 
+                                                  usernameVariable: 'DOCKER_HUB_USERNAME', 
+                                                  passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
+                    // Docker login command using the injected credentials
+                    sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
                 }
             }
         }
