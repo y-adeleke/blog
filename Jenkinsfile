@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = "yadeleke/blog:latest"  
+        DOCKER_IMAGE_NAME = "yadeleke/blog:latest"
+        PATH = "/usr/local/bin:/usr/bin:/bin" // Ensure /usr/local/bin is included
     }
 
     stages {
@@ -23,11 +24,9 @@ pipeline {
         }
         stage('Docker Login') {
             steps {
-                // Use withCredentials to securely inject username and password
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-cred', 
                                                   usernameVariable: 'DOCKER_HUB_USERNAME', 
                                                   passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    // Docker login command using the injected credentials
                     sh "echo $DOCKER_HUB_PASSWORD | docker login -u $DOCKER_HUB_USERNAME --password-stdin"
                 }
             }
