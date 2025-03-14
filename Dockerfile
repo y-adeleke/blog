@@ -1,10 +1,10 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:8-jdk-alpine
+# Use an official OpenJDK 17 runtime as a parent image
+FROM openjdk:17-jdk-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
-# IMPORTANT: Copy the executable JAR (not the .original file)
+# Copy the executable JAR file into the container
 COPY target/blog-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port on which your app runs
